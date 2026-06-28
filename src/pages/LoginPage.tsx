@@ -21,7 +21,7 @@ const LoginPage = () => {
       // );
 
       const { data } = await axios.post(
-        '/login',
+        '/api/login',
         values,
       );
 

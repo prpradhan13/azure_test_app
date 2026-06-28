@@ -23,7 +23,7 @@ const RegisterPage = () => {
       // );
 
       const { data } = await axios.post(
-        '/register',
+        '/api/register',
         values,
       );
 

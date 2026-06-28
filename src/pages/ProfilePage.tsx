@@ -26,7 +26,7 @@ const ProfilePage = () => {
         //   `${import.meta.env.VITE_API_URL}/api/profile/${userid}`,
         // );
 
-        const { data } = await axios.get<ProfileData>(`/profile/${userid}`);
+        const { data } = await axios.get<ProfileData>(`/api/profile/${userid}`);
 
         setUserData(data);
       } catch (error: unknown) {
