@@ -22,9 +22,11 @@ const ProfilePage = () => {
       }
 
       try {
-        const { data } = await axios.get<ProfileData>(
-          `${import.meta.env.VITE_API_URL}/profile/${userid}`,
-        );
+        // const { data } = await axios.get<ProfileData>(
+        //   `${import.meta.env.VITE_API_URL}/api/profile/${userid}`,
+        // );
+
+        const { data } = await axios.get<ProfileData>(`/profile/${userid}`);
 
         setUserData(data);
       } catch (error: unknown) {

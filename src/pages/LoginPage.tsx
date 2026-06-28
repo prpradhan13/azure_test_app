@@ -16,7 +16,7 @@ const LoginPage = () => {
   const submitHandler: SubmitHandler<typeof LoginSchema> = async (values) => {
     try {
       // const { data } = await axios.post(
-      //   `${import.meta.env.VITE_API_URL}/login`,
+      //   `${import.meta.env.VITE_API_URL}/api/login`,
       //   values,
       // );
 
