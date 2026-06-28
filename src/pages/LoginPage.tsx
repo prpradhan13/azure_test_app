@@ -1,24 +1,37 @@
-import { Form, Field, useForm } from "@formisch/react";
+import { Form, Field, useForm, type SubmitHandler } from "@formisch/react";
 import { LoginSchema } from "@/utils/form";
 import InputField from "@/components/custom/InputField";
-import type { SubmitHandler } from "@formisch/react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [formSubmitting, setFormSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const loginForm = useForm({
     schema: LoginSchema,
   });
 
-  const submitHandler: SubmitHandler<typeof LoginSchema> = (values) => {
-    setFormSubmitting(true);
+  const submitHandler: SubmitHandler<typeof LoginSchema> = async (values) => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        values,
+      );
 
-    setTimeout(() => {
-      setFormSubmitting(loginForm.isSubmitting)
-      console.log("Form submitted with values:", values);
-    }, 3000);
+      if (data.success) {
+       toast.success("Registration Success!")
+        navigate(`/profile/${data.userId}`);
+      } else {
+        toast.error("Registration Failed!")
+      }
+    } catch (error: unknown) {
+      console.log(
+        "Error: ",
+        error instanceof Error ? error.message : String(error),
+      );
+    }
   };
 
   return (
@@ -56,10 +69,10 @@ const LoginPage = () => {
 
         <Button
           type="submit"
-          disabled={formSubmitting}
+          disabled={loginForm.isSubmitting}
           className="w-full"
         >
-          {formSubmitting ? "Submitting..." : "Login"}
+          {loginForm.isSubmitting ? "Submitting..." : "Login"}
         </Button>
       </Form>
     </div>
